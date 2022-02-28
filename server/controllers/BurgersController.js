@@ -1,11 +1,15 @@
 import { burgersService } from "../services/BurgersService";
 import BaseController from "../utils/BaseController";
+import { logger } from "../utils/Logger";
 
 export class BurgersController extends BaseController{
     constructor(){
         super('api/burgers')
         this.router
         .get('', this.getAllBurgers)
+        .post('', this.createBurger)
+        .delete('/:id', this.removeBurger)
+        
 
     }
     async getAllBurgers(req, res, next){
@@ -26,7 +30,8 @@ export class BurgersController extends BaseController{
     }
     async removeBurger(req, res, next){
         try {
-            const message = await burgersService.removeBurger(req.params.burgerId)
+            logger.log(req.params.id)
+            const message = await burgersService.removeBurger(req.params.id)
             return res.send(message)
         } catch (error) {
             next(error)

@@ -1,8 +1,10 @@
 import { dbContext } from "../db/DbContext"
+import { logger } from "../utils/Logger"
 
 class BurgersService {
-    removeBurger(id){
-        const index= dbContext.Burgers.findIndex(b => b.id.toString() === id)
+     removeBurger(id){
+        logger.log("burger id", typeof id)
+        const index = dbContext.Burgers.findIndex(b => b.id.toString() === id)
         if(index === -1){
             throw new Error('no burger at that id')
         }
